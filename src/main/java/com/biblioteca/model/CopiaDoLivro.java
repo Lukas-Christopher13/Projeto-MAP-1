@@ -1,4 +1,7 @@
-package com.biblioteca.domain;
+package com.biblioteca.model;
+
+import com.biblioteca.domain.LiberacaoEmprestimo;
+import com.biblioteca.model.LivroBuilder.Livro;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

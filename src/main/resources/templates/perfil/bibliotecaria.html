@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <title>Bibliotecaria</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="bibliotecaria.css">
+</head>
+<body>
+
+	<div class="center_div">
+
+		<!--Talvez adicionar um situação!-->
+        <div>
+            <h2>Livros cadastrados no sistema</h2>
+
+			<ul>
+				<li>Livro 1: N de compias = 2
+					<input type="button" value="Adicionar copia">
+					<input type="button" value="Visualizar">
+			        <input type="button" value="Deletar">
+				</li>
+
+				<li>Livro 2:  N de compias = 2
+					<input type="button" value="Adicionar copia">
+					<input type="button" value="Visualizar">
+			        <input type="button" value="Deletar">
+				</li>
+
+				<li>Livro 3:  N de compias = 2
+					<input type="button" value="Adicionar copia"> 
+					<input type="button" value="Visualizar">
+			        <input type="button" value="Deletar">
+				</li>
+				
+			</ul>
+			
+		</div>
+	
+		<form class="" action="#" th:action="@{/bibliotecaria}" th:object="${livro}" method="post">
+			<h2>Cadastro de Livros</h2>
+
+		    <p>Titulo:<input type="text"  th:field="*{titulo}"></p>
+			<p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}">Name Error</p>
+
+			<p>Autor:<input type="text"  th:field="*{autor}"></p>
+			<p th:if="${#fields.hasErrors('autor')}" th:errors="*{autor}">Name Error</p>
+
+			<p>Ano:<input type="text"  th:field="*{ano}"></p>
+			<p th:if="${#fields.hasErrors('ano')}" th:errors="*{ano}">Name Error</p>
+
+			<p>ISBN:<input type="text"  th:field="*{isbn}"></p>
+			<p th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}">Name Error</p>
+
+			<p>Editora:<input type="text"  th:field="*{editora}"></p>
+			<p th:if="${#fields.hasErrors('editora')}" th:errors="*{editora}">Name Error</p>
+			
+            <p>Tipo:<select name="" id="" th:field="*{tipo}">
+				<option value="Periodico">Periódico</option>
+				<option value="Referencia">Referência</option>
+				<option value="Didatico">Didatico</option>
+				<option value="Paradidatico">Paradidatico</option>
+				<option value="Revista">Revista</option>
+			</select></p>
+
+			<input type="submit" value="Subimit">
+
+		</form>
+	
+
+
+	</div>
+
+</body>
+</html>

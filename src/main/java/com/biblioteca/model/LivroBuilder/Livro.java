@@ -1,8 +1,12 @@
-package com.biblioteca.domain;
+package com.biblioteca.model.LivroBuilder;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+
 
 @Data
 @NoArgsConstructor
@@ -13,5 +17,5 @@ public class Livro {
     private int ano;
     private String isbn;
     private String editora;
-    private LivroTipo tipo;
+    private String tipo;
 }
