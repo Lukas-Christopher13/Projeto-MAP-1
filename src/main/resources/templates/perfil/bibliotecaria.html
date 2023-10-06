@@ -7,27 +7,17 @@
 </head>
 <body>
 
+	
+
 	<div class="center_div">
 
 		<!--Talvez adicionar um situação!-->
         <div>
             <h2>Livros cadastrados no sistema</h2>
 
-			<ul>
-				<li>Livro 1: N de compias = 2
+			<ul th:each="livro : ${livros}">
+				<li>Livro: <p th:text="${livro.titulo}"></p>
 					<input type="button" value="Adicionar copia">
-					<input type="button" value="Visualizar">
-			        <input type="button" value="Deletar">
-				</li>
-
-				<li>Livro 2:  N de compias = 2
-					<input type="button" value="Adicionar copia">
-					<input type="button" value="Visualizar">
-			        <input type="button" value="Deletar">
-				</li>
-
-				<li>Livro 3:  N de compias = 2
-					<input type="button" value="Adicionar copia"> 
 					<input type="button" value="Visualizar">
 			        <input type="button" value="Deletar">
 				</li>
@@ -36,7 +26,7 @@
 			
 		</div>
 	
-		<form class="" action="#" th:action="@{/bibliotecaria}" th:object="${livro}" method="post">
+		<form class="" action="#" th:action="@{/bibliotecaria}" th:object="${livroModel}" method="post">
 			<h2>Cadastro de Livros</h2>
 
 		    <p>Titulo:<input type="text"  th:field="*{titulo}"></p>
@@ -61,6 +51,8 @@
 				<option value="Paradidatico">Paradidatico</option>
 				<option value="Revista">Revista</option>
 			</select></p>
+
+			<p>Numeor de copias: <input type="text" th:field="*{quantidade}"></p>
 
 			<input type="submit" value="Subimit">
 

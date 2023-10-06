@@ -6,35 +6,24 @@ import java.sql.SQLException;
 
 //Singleton
 public class DataBase {
-	private static DataBase dataBase = null;
-	private Connection connection;
+	private static Connection connection = null;
 
-	//construtor privado
 	private DataBase()  {
-		tryDataBase();
+
 	}
 
 	//Separai os try/catch para deixar o codigo mais organizado
-	private void tryDataBase() {
-		try {
-			this.connection = DriverManager.getConnection(
-				"jdbc:sqlite:/home/lukas/Desenvolvimento/java/Projeto parte1/Projeto1/Base_De_Dados.db"
-			);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}	
-	}
-
-	//função statica get para o singleton
 	public static Connection getConnection() {
-		if(dataBase == null) {
-			dataBase = new DataBase();
+        if(connection == null) {
+			try {
+			    connection = DriverManager.getConnection(
+				    "jdbc:sqlite:/home/lukas/Desenvolvimento/java/Projeto parte1/Projeto1/Base_De_Dados.db"
+			    );
+		    } catch (SQLException e) {
+			    e.printStackTrace();
+		    }	
 		}
-		return dataBase.connection;
-	}
-
-    public void closeConnection() {
-		tryCloseConnection();
+		return connection;
 	}
 
 	private void tryCloseConnection() {

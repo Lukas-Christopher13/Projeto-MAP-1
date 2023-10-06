@@ -69,7 +69,7 @@ public enum SQLScripts {
 
 	COPIAS("""
 		CREATE TABLE Copias(
-			Sequencia int PRIMARY KEY,
+			Sequencia INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 			Titulo TEXT,
 			Situacao varchar(20) NOT NULL,
 		    Liberacao_para_emprestimo BIT NOT NULL,

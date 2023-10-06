@@ -14,11 +14,12 @@ public class LoginModel {
 
 	private LibEmployee libEmployee;
 	private Statement statement;
+	private Connection connection;
 
 	public LoginModel(LibEmployee libEmployee) {
 		this.libEmployee = libEmployee;
-
-		Connection connection = DataBase.getConnection();
+        this.connection = DataBase.getConnection();
+		
         try {
 		    this.statement = connection.createStatement();
 		} catch (SQLException e) {
@@ -51,10 +52,15 @@ public class LoginModel {
 			libEmployee.setSenha(resultSet.getString("Senha"));
 			libEmployee.setNome(resultSet.getString("Nome"));
 			libEmployee.setCargo(resultSet.getString("Cargo"));
-		
+
+			//close
+			statement.close();
+			resultSet.close();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 		return libEmployee;
 	}
 

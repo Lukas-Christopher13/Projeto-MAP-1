@@ -1,7 +1,6 @@
 package com.biblioteca.model;
 
-import com.biblioteca.domain.LiberacaoEmprestimo;
-import com.biblioteca.model.LivroBuilder.Livro;
+import com.biblioteca.model.LivroPrototype.Livro;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class CopiaDoLivro {
     private int sequencial;
     private Livro livro;
-    private CopiaDoLivroSituacao situacao;
-    private LiberacaoEmprestimo liberacaoEmprestimo;
+    private String situacao;
+    private String liberacaoEmprestimo;
 }
