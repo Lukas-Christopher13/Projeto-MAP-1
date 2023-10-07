@@ -24,7 +24,7 @@ public enum SQLScripts {
 
 	LEITOR("""
 		CREATE TABLE Leitor (
-			Leitor_id int PRIMARY KEY NOT NULL,
+			Cpf int PRIMARY KEY NOT NULL,
 			Email varchar(50) NOT NULL,
 			Senha varchar(20) NOT NULL,
 			Nome varchar(50) NOT NULL,
@@ -42,10 +42,10 @@ public enum SQLScripts {
 
 	LEITOR_FAZ_RESERVA("""
 		CREATE TABLE Leitor_Faz_Reserva (
-			Leitor_id int,
+			Cpf int,
 			Reserva_id int,
-			PRIMARY KEY(Leitor_id, Reserva_id),
-			FOREIGN KEY (Leitor_id) REFERENCES Leitor(Leitor_id),
+			PRIMARY KEY(Cpf, Reserva_id),
+			FOREIGN KEY (Cpf) REFERENCES Leitor(Cpf),
 			FOREIGN KEY (Reserva_id) REFERENCES Reserva(Reserva_id)
 		)"""),
 	
@@ -60,10 +60,10 @@ public enum SQLScripts {
 	
 	LEITOR_REALIZA_EMPRESTIMO("""
 		CREATE TABLE Leitor_Realiza_Emprestimo(
-			Leitor_id int,
+			Cpf int,
 			Emprestimo_id int,
-			PRIMARY KEY(Leitor_id, Emprestimo_id),
-			FOREIGN KEY (Leitor_id) REFERENCES Leitor(Leitor_id),
+			PRIMARY KEY(Cpf, Emprestimo_id),
+			FOREIGN KEY (Cpf) REFERENCES Leitor(Cpf),
 		    FOREIGN KEY (Emprestimo_id) REFERENCES Emprestimo(Emprestimo_id)
 		)"""),
 

@@ -37,11 +37,11 @@ public class LoginModel {
 		return senhas.contains(libEmployee.getSenha());
 	}
 
-	public LibEmployee getEmployee() {
-		return tryToGetEmployee();
+	public LibEmployee getEmployee(String emial) {
+		return tryToGetEmployee(emial);
 	}
 	
-	private LibEmployee tryToGetEmployee() {
+	private LibEmployee tryToGetEmployee(String email) {
 		LibEmployee libEmployee = new LibEmployee();
 
 		try {
@@ -53,7 +53,6 @@ public class LoginModel {
 			libEmployee.setNome(resultSet.getString("Nome"));
 			libEmployee.setCargo(resultSet.getString("Cargo"));
 
-			//close
 			statement.close();
 			resultSet.close();
 

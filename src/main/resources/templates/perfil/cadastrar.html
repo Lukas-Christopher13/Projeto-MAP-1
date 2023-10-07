@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Cadastrar Leiotor</h1>
+
+	<form class="" action="#" th:action="@{/atendente/cadastrar}" th:object="${leitorModel}" method="post">
+		<p>CPF: <input type="text" th:field="*{cpf}"> </p>
+		<p>Senha: <input type="text" th:field="*{senha}"> </p>
+		<p>Nome <input type="text" th:field="*{nome}"> </p>
+
+		<p>Tipo:<select name="" id="" th:field="*{tipo}">
+			<option value="Aluno">Aluno</option>
+			<option value="Professor">Professor</option>
+			<option value="Funcionario">Funcionário</option>
+			<option value="Visitante">Visitante</option>
+		</select></p>
+
+		<input type="submit" name="" id="" value="Cadastrar">
+
+	</form>
+
+	<a href="/atendente">Voltar</a>
+
+</body>
+</html>

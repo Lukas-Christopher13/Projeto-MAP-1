@@ -1,5 +1,6 @@
-package com.biblioteca.domain;
+package com.biblioteca.model.LeitorPrototype;
 
+import com.biblioteca.domain.ReservaSituacao;
 import com.biblioteca.model.CopiaDoLivro;
 
 import lombok.AllArgsConstructor;

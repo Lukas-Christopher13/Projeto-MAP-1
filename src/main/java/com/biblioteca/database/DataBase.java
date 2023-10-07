@@ -25,12 +25,4 @@ public class DataBase {
 		}
 		return connection;
 	}
-
-	private void tryCloseConnection() {
-		try {
-			this.connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 }

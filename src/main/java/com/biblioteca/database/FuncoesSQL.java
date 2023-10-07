@@ -5,101 +5,57 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.biblioteca.model.CopiaDoLivro;
-import com.biblioteca.model.LibEmployee;
-import com.biblioteca.model.LivroPrototype.Livro;
+import com.biblioteca.model.LeitorPrototype.LeitorModel;
+
 
 public class FuncoesSQL {
 
-
-	private Statement statement;
-
-	public static void main(String[] args) {
-		
-	}
-
-	public FuncoesSQL() {
-		Connection connection = DataBase.getConnection();
-        try {
-		    this.statement = connection.createStatement();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-
-
-
-	//get valores
-	public LibEmployee getEmployee(String libEmployeeEmail) {
-		LibEmployee libEmployee = new LibEmployee();
-
-		try {
-			ResultSet resultSet = statement.executeQuery(
-			String.format("SELECT Email, Senha, Nome, Cargo FROM AB WHERE Email = '%s'", libEmployeeEmail));
-
-		    libEmployee.setEmail(resultSet.getString("Email"));
-			libEmployee.setSenha(resultSet.getString("Senha"));
-			libEmployee.setNome(resultSet.getString("Nome"));
-			libEmployee.setCargo(resultSet.getString("Cargo"));
-		
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return libEmployee;
-	}
-
-	//terminar o get livro
-	public CopiaDoLivro getCopiaDoLivro(int sequencia) {
-		String sqlString = String.format(
-			"SELECT Sequencia, Titulo, Situacao Liberacao_para_emprestimo FROM Copias WHERE Sequencia = '%d'", sequencia);
-        
-		CopiaDoLivro copiaDoLivro = new CopiaDoLivro();
-        Livro livro;
-
-		try {
-			ResultSet resultSet = statement.executeQuery(sqlString);
-
-			livro = getLivro(resultSet.getString("Titulo"));
-			copiaDoLivro.setLivro(livro);
-			
-			copiaDoLivro.setSequencial(resultSet.getInt("Sequencia"));
-			copiaDoLivro.setSituacao(resultSet.getString("Situcao"));
-			copiaDoLivro.setLiberacaoEmprestimo(resultSet.getString("Liberacao_para_emprestimo"));
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return copiaDoLivro;
-	}
-
-	public Livro getLivro(String titulo) {
-		String sqlString = String.format(
-			"SELECT Titulo, Email, Autor, Ano, isbn, Editora, Tipo FROM Livro WHERE Titulo = '%s'", 
-			titulo
+	public static boolean tryToFindItem(String tabela, String campo, String valor) {
+        String sqlSelectName = String.format(
+			"SELECT %s FROM %s WHERE %s=%s", 
+		    campo, tabela, campo, valor
 		);
 		
-		Livro livro = new Livro();
+		try {
+			Connection connection = DataBase.getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sqlSelectName);
 
-	    try {
-			ResultSet resultSet = statement.executeQuery(sqlString);
+			if(resultSet.next()) {
+				String titulo = resultSet.getString(campo);
+				statement.close();
+			    resultSet.close();
+				return titulo.equals(valor);
+			}
 
-			livro.setTitulo(resultSet.getString("Titulo"));
-			livro.setAutor(resultSet.getString("Autor"));
-			livro.setAno(resultSet.getInt("Ano"));
-			livro.setIsbn(resultSet.getString("ibsn"));
-			livro.setEditora(resultSet.getString("Editora"));
-			livro.setTipo(resultSet.getString("Tipo"));
+			statement.close();
+			resultSet.close();
+
+			return false;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
-
-		return livro;
 	}
 
+	public static void cadastrarLeitor(LeitorModel leitorModel) {
+		String sqlString = String.format(
+			"INSERT INTO Leitor VALUES ('%s', '%s', '%s', '%s', '%s')", 
+			leitorModel.getCpf(),
+			leitorModel.getEmialDoBibliotecario(),
+			leitorModel.getSenha(),
+			leitorModel.getNome(),
+			leitorModel.getTipo()
+		);
 
-
-	
+		Connection connection = DataBase.getConnection();
+		
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(sqlString);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

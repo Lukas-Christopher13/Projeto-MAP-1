@@ -30,13 +30,13 @@ public class LoginController {
 			return "login/login";
 		}
 
-		libEmployee = loginModel.getEmployee();
+		libEmployee = loginModel.getEmployee(libEmployee.getEmail());
 		redirectAttributes.addFlashAttribute("libEmployee", libEmployee);
 
 		String cargo = libEmployee.getCargo();
 
 		if(cargo.equals("A")) {
-			return "redirect:bibliotecaria";
+			return "redirect:atendente";
 		}
 
 		return "redirect:bibliotecaria";
