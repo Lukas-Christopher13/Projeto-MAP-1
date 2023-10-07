@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<div>
+		<h1>Livros</h1>
+		<div  style="overflow-y:scroll; height:400px; background:gray">
+		    <ul>
+			    <li th:each="livro : ${livros}" th:text="${livro.titulo}"></li>
+		    </ul>
+		</div>
+
+		
+		<h1>Copias</h1>
+		<div style="overflow-y:scroll; height:400px; background:gray">
+			<table>
+				<tr>
+					<th>N sequencia</th>
+					<th>Livro</th>
+				</tr>
+				<tr th:each="copia : ${copias}">
+					<th th:text="${copia.sequencia}"></th>
+					<th th:text="${copia.livro}"></th>
+				</tr>
+			</table>
+		</div>
+
+		<form class="" action="#" th:action="@{/atendente/emprestimo}" th:object="${emprestimo}" method="post">
+			<p>Sequencia da Copia: <input type="text" th:field="*{sequencia}"></p>
+			<p>Cpf do Leitor: <input type="text" th:field="*{cpf}"></p>
+			<p>Senha do Leitor: <input type="password" th:field="*{senha}"></p>
+
+			<input type="submit" value="Realizar Emprestimo">
+		</form>
+
+	</div>
+
+</body>
+</html>

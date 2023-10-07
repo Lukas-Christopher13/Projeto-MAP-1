@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class LivroModel implements ILivroPrototype {
     private String titulo;
     private String autor;
+    private String email;
     private int ano;
     private String isbn;
     private String editora;

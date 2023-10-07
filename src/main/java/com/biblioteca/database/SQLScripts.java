@@ -51,7 +51,7 @@ public enum SQLScripts {
 	
 	EMPRESTIMO("""
 		CREATE TABLE Emprestimo (
-			Emprestimo_id int PRIMARY KEY,
+			Emprestimo_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 			Situacao varchar(20) NOT NULL,
 			Data varchar(20) NOT NULL,
 			Data_da_devolucao varchar(20) NOT NULL,
