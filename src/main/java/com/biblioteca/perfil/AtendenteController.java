@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.biblioteca.domain.Emprestimo;
 import com.biblioteca.model.LibEmployee;
 import com.biblioteca.model.CopiaDoLivroPrototype.CopiaDoLivroModel;
 import com.biblioteca.model.LeitorPrototype.LeitorModel;
@@ -19,6 +21,7 @@ import com.biblioteca.model.LivroPrototype.LivroModel;
 public class AtendenteController {
 
 	private LibEmployee libEmployee;
+	private EmprestimoModel emprestimoModel;
 
 	@GetMapping
 	public String atendenteView(Model model) {
@@ -65,5 +68,49 @@ public class AtendenteController {
 		AtendenteFacade.realizarEmprestimo(emprestimoModel);
 
 		return "redirect:emprestimo";
+	}
+
+	@GetMapping("/devolucao/login")
+	public String loginDevolucaoVeiw(Model model) {
+		model.addAttribute("devolucao", new EmprestimoModel());
+
+		return "perfil/login";
+	}
+
+	@PostMapping("/devolucao/login")
+	public String loginDevolucao(@ModelAttribute EmprestimoModel emprestimoModel, Model model, RedirectAttributes redirectAttributes) {
+		model.addAttribute("devolucao", emprestimoModel);
+
+
+		if(AtendenteFacade.login(emprestimoModel)){
+			redirectAttributes.addFlashAttribute("devolucao", emprestimoModel);
+			return "redirect:devolver";
+		}
+		return "redirect:login";
+	}
+
+	@GetMapping("/devolucao/devolver")
+	private String devolucaoView(Model model) {
+
+        if(emprestimoModel == null) {
+			emprestimoModel = (EmprestimoModel) model.asMap().get("devolucao");
+		}
+
+        List<DevolucaoModel> devolucaoModels = AtendenteFacade.getLivrosEmprestados(emprestimoModel);
+
+		model.addAttribute("devolucao", new DevolucaoModel());
+		model.addAttribute("emprestimos", devolucaoModels);
+
+		return "perfil/devolver";
+	}
+
+	@PostMapping("/devolucao/devolver")
+	private String devolucao(@ModelAttribute DevolucaoModel devolucaoModel, Model model) {
+		model.addAttribute("devolucao", devolucaoModel);
+
+
+        AtendenteFacade.devolver(devolucaoModel.getId_copia());
+
+		return "redirect:devolver";
 	}
 }

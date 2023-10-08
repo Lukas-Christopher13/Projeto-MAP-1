@@ -1,14 +1,14 @@
 package com.biblioteca.perfil;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmprestimoModel {
+public class DevolucaoModel {
+
 	private int cpf;
-	private int sequencia;
-	private String senha;
+	private int id_copia;
 }
